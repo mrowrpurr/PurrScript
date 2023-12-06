@@ -2,7 +2,6 @@
 
 #include <PurrScript/API.h>
 #include <PurrScript/Implementations/Factories/Package_Factory.h>
-#include <_Log_.h>
 
 #include "ImportLookup.h"
 #include "IncludeNamespace.h"
