@@ -12,7 +12,23 @@ namespace PurrScript::Implementations {
     class VariableCollection_Impl : public VariableCollection {
         collections_map<std::string, Value*> _values;
 
-        void MergeVariable(const char* name, Value* value) { _values.emplace(name, value->Copy()); }
+        void MergeVariable(const char* name, Value* value) {
+            if (value->IsNamespace()) {
+                if (auto* namespaceValue = value->As<Namespace*>()) {
+                    auto existingNamespace = _values.find(name);
+                    if (existingNamespace != _values.end()) {
+                        if (auto* existingNamespaceValue =
+                                existingNamespace->second->As<Namespace*>()) {
+                            existingNamespaceValue->GetVariables()->Merge(
+                                namespaceValue->GetVariables()
+                            );
+                            return;
+                        }
+                    }
+                }
+            }
+            _values.emplace(name, value->Copy());
+        }
 
         FunctionPointer<void(const char*, Value*)> _mergeVariableFn =
             function_pointer(this, &VariableCollection_Impl::MergeVariable);
