@@ -1,4 +1,4 @@
-#define spec_name CollectPrintOutput
+#define spec_name Invoke_Global_Print_Function
 
 #include "SpecHelper.h"  // IWYU pragma: keep
 

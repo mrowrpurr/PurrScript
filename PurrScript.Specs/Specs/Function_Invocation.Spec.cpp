@@ -1,4 +1,4 @@
-#define spec_name FunctionInvocation
+#define spec_name Function_Invocation
 
 #include "SpecHelper.h"  // IWYU pragma: keep
 
