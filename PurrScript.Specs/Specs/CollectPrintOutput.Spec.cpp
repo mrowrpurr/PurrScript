@@ -2,7 +2,6 @@
 
 #include "SpecHelper.h"  // IWYU pragma: keep
 
-TestGroup("Collect Print Output");
 UseTemplate("Context");
 
 Test("invoke global print function") {

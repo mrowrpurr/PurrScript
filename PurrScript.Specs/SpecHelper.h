@@ -4,13 +4,14 @@
 // Include before everything else to override _Log_ to collect all logs from PurrScript (etc)
 
 // #include <Shared Example Struct Implementations.h>
+#include <Shared Example Struct Implementations.h>  // IWYU pragma: keep
 #include <Specs.h>
 #include <Specs/Snowhouse.h>
 #include <string_format.h>
 
 #include <iostream>  // IWYU pragma: keep
 
-#include "SpecHelpers/LogCollector.h"
+#include "SpecHelpers/LogCollector.h"           // IWYU pragma: keep
 #include "SpecHelpers/PurrScriptEnvironment.h"  // IWYU pragma: keep
 
 using namespace std;
@@ -19,6 +20,7 @@ using namespace PurrScript::Implementations;
 using namespace PurrScript::Implementations::Lua;
 using namespace PurrScript::Implementations::Factories;
 
+#define get_env() current_spec->var<PurrScriptSpecEnvironment*>("env")
 #define get_context() current_spec->var<ScriptContext*>("context")
 #define run_code(code) get_context()->ExecuteCode(code)
 

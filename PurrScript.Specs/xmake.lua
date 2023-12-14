@@ -9,11 +9,12 @@ target("PurrScript.Specs")
         "PurrScript.Client",
         "PurrScript.Implementations",
         "PurrScript.Packages.Core",
-        "PurrScript.Lua"
+        "PurrScript.Lua",
+        "Shared Example Struct Implementations"
     )
     add_packages(
         "specs", "specs_snowhouse", "vcpkg::snowhouse",
         "_Log_", "spdlog", "luajit", "unordered_dense", "string_format"
     )
-    add_files("RunSpecs.cpp", "Templates/*.cpp", "Specs/**/*.cpp")
+    add_files("RunSpecs.cpp", "Templates/*.cpp", "Specs/*.cpp")
     add_includedirs(".")
