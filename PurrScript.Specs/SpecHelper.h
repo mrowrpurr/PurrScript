@@ -1,6 +1,6 @@
 #pragma once
 
-#include "InterceptLogs.h"
+#include "SpecHelpers/InterceptLogs.h"
 // Include before everything else to override _Log_ to collect all logs from PurrScript (etc)
 
 #include <PurrScript/Client.h>
@@ -9,12 +9,13 @@
 #include <PurrScript/Implementations/PurrScriptAPI_Impl.h>
 #include <PurrScript/Packages/Core.h>
 // #include <Shared Example Struct Implementations.h>
-#include <Specs/SpecHelper.h>
+#include <Specs.h>
+#include <Specs/Snowhouse.h>
 #include <string_format.h>
 
 #include <iostream>  // IWYU pragma: keep
 
-#include "LogCollector.h"
+#include "SpecHelpers/LogCollector.h"
 
 using namespace std;
 using namespace PurrScript;

@@ -1,4 +1,7 @@
-add_requires("specs_cpp", "vcpkg::snowhouse", "_Log_", "spdlog", "luajit", "unordered_dense", "string_format")
+add_requires(
+    "specs", "specs_snowhouse", "vcpkg::snowhouse",
+    "_Log_", "spdlog", "luajit", "unordered_dense", "string_format"
+)
 
 target("PurrScript.Specs")
     set_kind("binary")
@@ -8,6 +11,9 @@ target("PurrScript.Specs")
         "PurrScript.Packages.Core",
         "PurrScript.Lua"
     )
-    add_packages("specs_cpp", "vcpkg::snowhouse", "_Log_", "spdlog", "luajit", "unordered_dense", "string_format")
-    add_files("*.cpp")
+    add_packages(
+        "specs", "specs_snowhouse", "vcpkg::snowhouse",
+        "_Log_", "spdlog", "luajit", "unordered_dense", "string_format"
+    )
+    add_files("*.cpp", "**/*.cpp")
     add_includedirs(".")
