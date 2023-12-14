@@ -15,5 +15,5 @@ target("PurrScript.Specs")
         "specs", "specs_snowhouse", "vcpkg::snowhouse",
         "_Log_", "spdlog", "luajit", "unordered_dense", "string_format"
     )
-    add_files("*.cpp", "**/*.cpp")
+    add_files("RunSpecs.cpp", "Templates/*.cpp", "Specs/**/*.cpp")
     add_includedirs(".")
