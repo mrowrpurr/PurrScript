@@ -8,6 +8,6 @@
 
 `PurrScript` was specifically designed to proxy function calls to _other languages_.
 
-It allows the creation of language **bridges** from `C++` to any language that can be called from `C++`
+It supports creating language **bridges** from `C++` to any language that can be called from `C++`
 
 > Let's build **bridges** together 🌉
