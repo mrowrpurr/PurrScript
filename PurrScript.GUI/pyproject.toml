@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "purrscript-gui"
+version = "0.1.0"
+description = "GUI for PurrScript"
+authors = ["Mrowr Purr <mrowr.purr@gmail.com>"]
+license = "0BSD"
+readme = "README.md"
+packages = [{include = "PurrScript", from = "src"}]
+
+[tool.poetry.dependencies]
+python = ">=3.12,<3.13"
+PySide6 = "^6.6.1"
+websockets = "^12.0"
+
+[tool.poetry.scripts]
+purrscript-gui = "PurrScript.GUI.__main__:main"
+
+[tool.poetry.group.dev.dependencies]
+poethepoet = "^0.24.4"
+pyinstaller = "^6.3.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
