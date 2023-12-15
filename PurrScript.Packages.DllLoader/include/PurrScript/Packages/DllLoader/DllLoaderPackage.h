@@ -1,8 +1,9 @@
 #pragma once
 
 #include <PurrScript/API.h>
+#include <PurrScript/DLL/DllLoader.h>
+#include <PurrScript/Implementations/Factories/Boolean_Factory.h>
 #include <PurrScript/Implementations/Factories/Package_Factory.h>
-#include <PurrScript/Implementations/Factories/Void_Factory.h>
 
 namespace PurrScript::Packages::DllLoader {
 
@@ -10,6 +11,8 @@ namespace PurrScript::Packages::DllLoader {
         static constexpr auto PACKAGE_NAME    = "PurrScript.DllLoader";
         static constexpr auto PACKAGE_VERSION = "0.0.1";
         static constexpr auto PACKAGE_AUTHOR  = "Mrowr Purr";
+
+        DLL::DllLoader _dllLoader;
 
         Implementations::Package_Impl _package = Implementations::Factories::CreatePackage(
             PACKAGE_NAME, PACKAGE_VERSION, PACKAGE_AUTHOR
@@ -26,7 +29,14 @@ namespace PurrScript::Packages::DllLoader {
                 return Implementations::Factories::VoidValue();
             }
             auto* dllFilePath = dllFilePathValue->AsString();
-            return Implementations::Factories::VoidValue();
+            try {
+                _dllLoader.LoadDLL(context->GetAPI(), dllFilePath);
+                _Log_("Loaded DLL: \"{}\"", dllFilePath);
+                return Implementations::Factories::BooleanValue(true);
+            } catch (const std::exception& e) {
+                _Log_("Failed to load DLL: {}", e.what());
+                return Implementations::Factories::BooleanValue(false);
+            }
         }
 
     public:

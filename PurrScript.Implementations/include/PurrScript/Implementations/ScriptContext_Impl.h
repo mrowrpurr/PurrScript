@@ -32,6 +32,8 @@ namespace PurrScript::Implementations {
         PackageImportHandlers_Impl  _packageImportHandlers;
 
         inline void ImportPackagePtr(Package* package) {
+            _Log_("ImportPackagePtr('{}')", package->GetName());
+
             if (_importedPackages.HasPackage(package)) {
                 _Log_("Already imported package '{}' into this script context", package->GetName());
                 return;
@@ -89,8 +91,12 @@ namespace PurrScript::Implementations {
         void ImportPackage(Package* package) override { ImportPackagePtr(package); }
 
         void ImportPackage(const char* requestedPackageName) override {
-            if (auto* package = _packageLookupHandlers.LookupImport(requestedPackageName, this))
+            _Log_("ImportPackage('{}')", requestedPackageName);
+            if (auto* package = _packageLookupHandlers.LookupImport(requestedPackageName, this)) {
                 ImportPackage(package);
+            } else {
+                _Log_("Package '{}' not found", requestedPackageName);
+            }
         }
 
         void ImportPackages(ReadOnlyPackageCollection* collection) override {

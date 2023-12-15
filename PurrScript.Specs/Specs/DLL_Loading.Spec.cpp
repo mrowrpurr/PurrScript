@@ -11,6 +11,12 @@ Test("can load global function from DLL") {
     auto* dllLoaderPackage = DllLoader::GetPackage();
     context()->ImportPackage(dllLoaderPackage);
 
+    eval(R"(
+        import("OneGlobalFunctionDLL")
+    )");
+
+    AssertOutputContains("Package 'OneGlobalFunctionDLL' not found");
+
     eval("say_hello_from_dll()");
 
     AssertOutputContains("attempt to call global 'say_hello_from_dll' (a nil value)");
@@ -21,17 +27,19 @@ Test("can load global function from DLL") {
 
     AssertOutputContains(R"(Loaded DLL: "DLL that Has One Global Function.dll")");
 
-    // AssertOutputDoesNotContain("attempt to call global 'say_hello_from_dll' (a nil value)");
+    eval(R"(
+        import("OneGlobalFunctionDLL")
+    )");
 
-    // eval("say_hello_from_dll()");
+    auto output = ReadLogs();
+    AssertThat(output, DoesNotContain("Package 'OneGlobalFunctionDLL' not found"));
+    AssertThat(output, Contains("ImportPackage('OneGlobalFunctionDLL')"));
 
-    // auto output = ReadLogs();
-    // AssertThat(output, DoesNotContain("attempt to call global 'say_hello_from_dll' (a nil
-    // value)"));
+    eval("say_hello_from_dll()");
 
-    // eval(R"(
-    //     DllLoader.LoadDLL("DLL that Has One Global Function.dll");
-    // )");
+    output = ReadLogs();
+    AssertThat(output, DoesNotContain("attempt to call global 'say_hello_from_dll' (a nil value)"));
 
-    // AssertOutputContains("[print]?????"));
+    // TODO: we need to figure out how to get the output from the DLL
+    // AssertThat(output, Contains("???"));
 }
