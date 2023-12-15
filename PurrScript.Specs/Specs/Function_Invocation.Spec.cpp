@@ -5,8 +5,8 @@
 UseTemplate("Context");
 
 Test("invoke instance function on variable (and delete variable)") {
-    auto* env     = get_env();
-    auto* context = get_context();
+    auto* env     = env();
+    auto* context = context();
 
     auto& dogPackage = env->NewPackage("Dog");
     dogPackage->DefineInstanceFunction(
@@ -23,27 +23,27 @@ Test("invoke instance function on variable (and delete variable)") {
 
     auto output = ReadLogs();
     AssertThat(output, Contains("[+] Dog_Impl"));
-    AssertThat(output, Is().Not().Containing("[~] Dog_Impl"));
+    AssertThat(output, DoesNotContain("[~] Dog_Impl"));
 
-    run_code("rover.Bark()");
+    eval("rover.Bark()");
 
     output = ReadLogs();
 
     // The Dog is destroyed when the context is destroyed
     AssertThat(output, Contains("Woof"));
-    AssertThat(output, Is().Not().Containing("[~] Dog_Impl"));
+    AssertThat(output, DoesNotContain("[~] Dog_Impl"));
 
     current_spec->vars()->unset("env");  // delete the environment
     output = ReadLogs();
 
     // The Dog is destroyed when the context is destroyed
     AssertThat(output, Contains("[~] Dog_Impl"));
-    AssertThat(output, Is().Not().Containing("[+] Dog_Impl"));
+    AssertThat(output, DoesNotContain("[+] Dog_Impl"));
 }
 
 Test("invoke static function on type") {
-    auto* env     = get_env();
-    auto* context = get_context();
+    auto* env     = env();
+    auto* context = context();
 
     auto& somePackage = env->NewPackage("SomeStuff");
     somePackage->GetTypeRegistry()->RegisterType("SomeType");
@@ -56,11 +56,11 @@ Test("invoke static function on type") {
         })
     );
 
-    run_code(R"(
+    eval(R"(
         import("SomeStuff")
 
         print("Multiply Result: " .. SomeType.Multiply(34.5, 2))
     )");
 
-    AssertThat(ReadLogs(), Contains("Multiply Result: 69"));
+    AssertOutputContains("Multiply Result: 69");
 }

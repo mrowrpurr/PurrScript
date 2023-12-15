@@ -21,9 +21,14 @@ using namespace PurrScript::Implementations;
 using namespace PurrScript::Implementations::Lua;
 using namespace PurrScript::Implementations::Factories;
 
-#define get_env() current_spec->var<PurrScriptSpecEnvironment*>("env")
-#define get_context() current_spec->var<ScriptContext*>("context")
-#define run_code(code) get_context()->ExecuteCode(code)
+#define DoesNotContain(...) Is().Not().Containing(__VA_ARGS__)
+#define AssertOutput(...) AssertThat(ReadLogs(), __VA_ARGS__)
+#define AssertOutputContains(...) AssertOutput(Contains(__VA_ARGS__))
+#define AssertOutputDoesNotContain(...) AssertOutput(DoesNotContain(__VA_ARGS__))
+
+#define env() current_spec->var<PurrScriptSpecEnvironment*>("env")
+#define context() current_spec->var<ScriptContext*>("context")
+#define eval(code) context()->ExecuteCode(code)
 
 #define __PRINT_1(a) std::cout << string_format("{}", a) << std::endl
 #define __PRINT_2(a, b) std::cout << string_format(a, b) << std::endl

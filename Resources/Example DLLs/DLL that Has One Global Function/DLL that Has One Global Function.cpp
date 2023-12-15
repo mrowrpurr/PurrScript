@@ -11,7 +11,7 @@ using namespace PurrScript;
 using namespace PurrScript::Client;
 using namespace PurrScript::Implementations;
 
-Value* say_hello(ScriptContext*, FunctionArguments*) {
+Value* say_hello_from_dll(ScriptContext*, FunctionArguments*) {
     cout << "Hello from global function defined in DLL!" << endl;
     return Factories::VoidValue();
 }
@@ -19,6 +19,8 @@ Value* say_hello(ScriptContext*, FunctionArguments*) {
 PurrScript_DLL(PurrScript::PurrScriptAPI* api) {
     auto  client  = CreateClient(api);
     auto& package = client->NewPackage("OneGlobalFunctionDLL", "1.0.0", "Mrowr");
-    package->DefineGlobalFunction("say_hello", unique_function_pointer(say_hello));
     api->GetPackageRegistry()->AddPackage(package.get());
+    package->DefineGlobalFunction(
+        "say_hello_from_dll", unique_function_pointer(say_hello_from_dll)
+    );
 }

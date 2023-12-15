@@ -5,7 +5,7 @@
 UseTemplate("Context");
 
 Test("can import package and access its variables via namespace") {
-    auto& somePackage   = get_env()->NewPackage("CoolThings");
+    auto& somePackage   = env()->NewPackage("CoolThings");
     auto* coolNamespace = somePackage->DefineNamespaces({"Hello", "World"});
     somePackage->DefineGlobalFunction(
         "MyFunction", unique_function_pointer([](ScriptContext*, FunctionArguments*) -> Value* {
@@ -15,17 +15,17 @@ Test("can import package and access its variables via namespace") {
         coolNamespace
     );
 
-    run_code(R"(
+    eval(R"(
         import("CoolThings")
 
         Hello.World.MyFunction()
     )");
 
-    AssertThat(ReadLogs(), Contains("Called Hello.World.MyFunction()"));
+    AssertOutputContains("Called Hello.World.MyFunction()");
 }
 
 Test("can 'include' a namespace to include all of its variables directly") {
-    auto& somePackage   = get_env()->NewPackage("CoolThings");
+    auto& somePackage   = env()->NewPackage("CoolThings");
     auto* coolNamespace = somePackage->DefineNamespaces({"Hello", "World"});
     somePackage->DefineGlobalFunction(
         "MyFunction", unique_function_pointer([](ScriptContext*, FunctionArguments*) -> Value* {
@@ -35,18 +35,18 @@ Test("can 'include' a namespace to include all of its variables directly") {
         coolNamespace
     );
 
-    run_code(R"(
+    eval(R"(
         import("CoolThings")
         include("Hello")
 
         World.MyFunction()
     )");
 
-    AssertThat(ReadLogs(), Contains("Called Hello.World.MyFunction()"));
+    AssertOutputContains("Called Hello.World.MyFunction()");
 }
 
 Test("can 'include' a namespace to include all of its variables directly") {
-    auto& somePackage   = get_env()->NewPackage("CoolThings");
+    auto& somePackage   = env()->NewPackage("CoolThings");
     auto* coolNamespace = somePackage->DefineNamespaces({"Hello", "World"});
     somePackage->DefineGlobalFunction(
         "MyFunction", unique_function_pointer([](ScriptContext*, FunctionArguments*) -> Value* {
@@ -56,18 +56,18 @@ Test("can 'include' a namespace to include all of its variables directly") {
         coolNamespace
     );
 
-    run_code(R"(
+    eval(R"(
         import("CoolThings")
         include("Hello.World")
 
         MyFunction()
     )");
 
-    AssertThat(ReadLogs(), Contains("Called Hello.World.MyFunction()"));
+    AssertOutputContains("Called Hello.World.MyFunction()");
 }
 
 Test("can 'include' and 'import' in the same line somehow") {
-    auto& somePackage   = get_env()->NewPackage("CoolThings");
+    auto& somePackage   = env()->NewPackage("CoolThings");
     auto* coolNamespace = somePackage->DefineNamespaces({"Hello", "World"});
     somePackage->DefineGlobalFunction(
         "MyFunction", unique_function_pointer([](ScriptContext*, FunctionArguments*) -> Value* {
@@ -77,11 +77,11 @@ Test("can 'include' and 'import' in the same line somehow") {
         coolNamespace
     );
 
-    run_code(R"(
+    eval(R"(
         include("Hello.World", { from = "CoolThings" })
 
         MyFunction()
     )");
 
-    AssertThat(ReadLogs(), Contains("Called Hello.World.MyFunction()"));
+    AssertOutputContains("Called Hello.World.MyFunction()");
 }

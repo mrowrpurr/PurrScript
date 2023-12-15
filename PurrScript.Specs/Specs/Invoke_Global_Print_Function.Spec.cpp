@@ -5,11 +5,11 @@
 UseTemplate("Context");
 
 Test("invoke global print function") {
-    auto* context = get_context();
+    auto* context = context();
 
-    run_code(R"(
+    eval(R"(
         print("Testing, testing, 1 2 3...")
     )");
 
-    AssertThat(ReadLogs(), Contains("[print]Testing, testing, 1 2 3..."));
+    AssertOutputContains("[print]Testing, testing, 1 2 3...");
 }

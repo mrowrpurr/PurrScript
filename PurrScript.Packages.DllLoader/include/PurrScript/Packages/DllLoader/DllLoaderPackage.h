@@ -15,8 +15,17 @@ namespace PurrScript::Packages::DllLoader {
             PACKAGE_NAME, PACKAGE_VERSION, PACKAGE_AUTHOR
         );
 
-        Value* LoadDLL(ScriptContext*, FunctionArguments*) {
-            _Log_("HELLO from _Log_ you called LoadDLL()!");
+        Value* LoadDLL(ScriptContext* context, FunctionArguments* args) {
+            if (args->GetArgumentCount() != 1) {
+                _Log_("LoadDLL requires 1 argument: DLL file path");
+                return Implementations::Factories::VoidValue();
+            }
+            auto* dllFilePathValue = args->GetArgumentByIndex(0)->GetValue();
+            if (!dllFilePathValue) {
+                _Log_("LoadDLL requires 1 argument: DLL file path");
+                return Implementations::Factories::VoidValue();
+            }
+            auto* dllFilePath = dllFilePathValue->AsString();
             return Implementations::Factories::VoidValue();
         }
 
