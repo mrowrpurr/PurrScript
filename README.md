@@ -3,3 +3,11 @@
 # PurrScript
 
 > Dynamically Typed Lua-based Language
+
+---
+
+🚧 **Under Construction** 🚧
+
+_Check back soon!_
+
+😽
