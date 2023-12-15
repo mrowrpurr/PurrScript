@@ -7,13 +7,16 @@ license = "0BSD"
 readme = "README.md"
 packages = [{include = "PurrScript", from = "src"}]
 
+[tool.poetry.scripts]
+purrscript-gui = "PurrScript.GUI.__main__:main"
+
+[tool.poe.tasks]
+qrc = "pyside6-rcc -o src/PurrScript/GUI/qrc_resources.py resources.qrc"
+
 [tool.poetry.dependencies]
 python = ">=3.12,<3.13"
 PySide6 = "^6.6.1"
 websockets = "^12.0"
-
-[tool.poetry.scripts]
-purrscript-gui = "PurrScript.GUI.__main__:main"
 
 [tool.poetry.group.dev.dependencies]
 poethepoet = "^0.24.4"
