@@ -1,3 +1,5 @@
+set_policy("package.requires_lock", true)
+
 set_languages("c++20")
 
 add_rules("mode.debug", "mode.releasedbg", "mode.release")
