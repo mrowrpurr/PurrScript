@@ -15,10 +15,19 @@ namespace PurrScript::Packages::DllLoader {
             PACKAGE_NAME, PACKAGE_VERSION, PACKAGE_AUTHOR
         );
 
+        Value* LoadDLL(ScriptContext*, FunctionArguments*) {
+            _Log_("HELLO from _Log_ you called LoadDLL()!");
+            return Implementations::Factories::VoidValue();
+        }
+
     public:
         DllLoaderPackage() {
-            auto dllLoaderNamespace = _package.DefineNamespace("DllLoader");
-            dllLoaderNamespace.
+            auto* dllLoaderNamespace = _package.DefineNamespace("DllLoader");
+
+            _package.DefineGlobalFunction(
+                "LoadDLL", unique_function_pointer(this, &DllLoaderPackage::LoadDLL),
+                dllLoaderNamespace
+            );
         }
 
         static DllLoaderPackage& Get() {

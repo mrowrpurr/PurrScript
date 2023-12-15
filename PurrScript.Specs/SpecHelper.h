@@ -16,6 +16,7 @@
 
 using namespace std;
 using namespace PurrScript;
+using namespace PurrScript::Packages;
 using namespace PurrScript::Implementations;
 using namespace PurrScript::Implementations::Lua;
 using namespace PurrScript::Implementations::Factories;
