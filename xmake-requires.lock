@@ -11,6 +11,14 @@
             },
             version = "@default"
         },
+        ["boost#31fecfc4"] = {
+            repo = {
+                branch = "master",
+                commit = "cb9b8b7dbdca624419dce6c425cecaf66d2abc3b",
+                url = "https://gitlab.com/tboox/xmake-repo.git"
+            },
+            version = "1.83.0"
+        },
         ["cmake#31fecfc4"] = {
             repo = {
                 branch = "master",
@@ -125,6 +133,14 @@
                 url = "https://github.com/MrowrLib/Packages.git"
             },
             version = "@default"
+        },
+        ["websocketpp#31fecfc4"] = {
+            repo = {
+                branch = "master",
+                commit = "cb9b8b7dbdca624419dce6c425cecaf66d2abc3b",
+                url = "https://gitlab.com/tboox/xmake-repo.git"
+            },
+            version = "0.8.2"
         }
     }
 }
