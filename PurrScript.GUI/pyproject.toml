@@ -17,6 +17,7 @@ qrc = "pyside6-rcc -o src/PurrScript/GUI/qrc_resources.py resources.qrc"
 python = ">=3.12,<3.13"
 PySide6 = "^6.6.1"
 websockets = "^12.0"
+click = "^8.1.7"
 
 [tool.poetry.group.dev.dependencies]
 poethepoet = "^0.24.4"
