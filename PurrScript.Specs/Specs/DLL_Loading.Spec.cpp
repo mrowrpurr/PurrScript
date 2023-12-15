@@ -39,7 +39,5 @@ Test("can load global function from DLL") {
 
     output = ReadLogs();
     AssertThat(output, DoesNotContain("attempt to call global 'say_hello_from_dll' (a nil value)"));
-
-    // TODO: we need to figure out how to get the output from the DLL
-    // AssertThat(output, Contains("???"));
+    AssertThat(output, Contains("[print]Hello from DLL![/print]"));
 }

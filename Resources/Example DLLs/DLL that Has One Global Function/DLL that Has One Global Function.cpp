@@ -1,5 +1,8 @@
 #include <PurrScript/Client.h>
 #include <PurrScript/DLL.h>
+#include <PurrScript/Implementations/Factories/FunctionArgument_Factory.h>
+#include <PurrScript/Implementations/Factories/FunctionArguments_Factory.h>
+#include <PurrScript/Implementations/Factories/String_Factory.h>
 #include <PurrScript/Implementations/Factories/Void_Factory.h>
 
 #include <iostream>
@@ -15,8 +18,13 @@ using namespace PurrScript::Implementations;
 unique_ptr<PurrScriptAPI_Client> _client  = nullptr;
 Package_Impl*                    _package = nullptr;
 
-Value* say_hello_from_dll(ScriptContext*, FunctionArguments*) {
-    cout << "Hello from global function defined in DLL!" << endl;
+Value* say_hello_from_dll(ScriptContext* context, FunctionArguments*) {
+    auto* printFunctionValue =
+        context->GetNameLookupHandlers()->LookupName("print", nullptr, context);
+    auto text = Factories::StringValue("Hello from DLL!");
+    auto args = Factories::CreateFunctionArguments();
+    args->AddArgument(text);
+    printFunctionValue->Call(context, nullptr, args.get());
     return Factories::VoidValue();
 }
 
