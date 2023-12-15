@@ -41,11 +41,15 @@ class AppWidget(QWidget):
         print(code)
         self.websocket_thread.enqueue_message(code)
 
+    def on_new_message(self, message: str):
+        print(f"[PYTHON] Received message: {message}")
+
     def connect(self, connection_uri: str):
         try:
             print(f"Connecting to {connection_uri}")
             self.websocket_thread = WebSocketThread(connection_uri)
             self.websocket_thread.thread_info_message.connect(self.on_thread_info_message)
+            self.websocket_thread.new_message.connect(self.on_new_message)
             self.websocket_thread.start()
         except Exception as e:
             print(f"Error connecting to {connection_uri}: {str(e)}")

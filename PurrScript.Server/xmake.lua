@@ -1,6 +1,7 @@
-add_requires("websocketpp", "unordered_dense", "spdlog", "cxxopts", "underscore_log")
+add_requires("websocketpp", "cxxopts", "underscore_log", "collections")
 
 target("PurrScript.Server")
-    set_kind("binary")
-    add_files("*.cpp")
-    add_packages("websocketpp", "unordered_dense", "spdlog", "cxxopts", "underscore_log")
+    set_kind("headeronly")
+    add_includedirs("include", { public = true })
+    add_deps("PurrScript.Implementations")
+    add_packages("websocketpp", "cxxopts", "underscore_log", "collections", { public = true })

@@ -1,3 +1,4 @@
+#include <PurrScript/Implementations/PurrScriptAPI_Impl.h>
 #include <_Log_.h>
 
 #include <csignal>
@@ -11,6 +12,10 @@ typedef websocketpp::server<websocketpp::config::asio> WebSocketServer;
 
 using namespace std;
 
+constexpr auto MESSAGE_NEW_ENVIRONMENT = "new_environment";
+constexpr auto MESSAGE_NEW_CONTEXT     = "new_context";
+constexpr auto MESSAGE_RUN_CODE        = "run_code";
+
 unique_ptr<WebSocketServer> server = nullptr;
 
 void on_sigint(int sig) {
@@ -21,7 +26,17 @@ void on_sigint(int sig) {
 }
 
 void on_message(websocketpp::connection_hdl hdl, WebSocketServer::message_ptr msg) {
-    _Log_("Received Message: {}", msg->get_payload());
+    // _Log_("[C++] Received Message: {}", msg->get_payload());
+    // try {
+    //     string reply = "Hello " + msg->get_payload() + "!";
+    //     server->send(hdl, reply, websocketpp::frame::opcode::text);
+    // } catch (const websocketpp::lib::error_code& e) {
+    //     _Log_("Echo failed because: {}", e.message());
+    // } catch (const exception& e) {
+    //     _Log_("Echo failed because: {}", e.what());
+    // } catch (...) {
+    //     _Log_("Echo failed because: Unknown exception.");
+    // }
 }
 
 void run_server(uint16_t port) {
