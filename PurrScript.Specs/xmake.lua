@@ -9,7 +9,7 @@ target("PurrScript.Specs")
         "PurrScript.Client",
         "PurrScript.Implementations",
         "PurrScript.Packages.Core",
-        "PurrScript.Packages.DllLoader",
+        "PurrScript.Packages.LibraryLoader",
         "PurrScript.Lua",
         "Shared Example Struct Implementations"
     )

@@ -3,13 +3,13 @@
 #include "SpecHelper.h"  // IWYU pragma: keep
 //
 
-#include <PurrScript/Packages/DllLoader.h>
+#include <PurrScript/Packages/LibraryLoader.h>
 
 UseTemplate("Context");
 
 Test("can load global function from DLL") {
-    auto* dllLoaderPackage = DllLoader::GetPackage();
-    context()->ImportPackage(dllLoaderPackage);
+    auto* LibraryLoaderPackage = LibraryLoader::GetPackage();
+    context()->ImportPackage(LibraryLoaderPackage);
 
     eval(R"(
         import("OneGlobalFunctionDLL")
@@ -22,7 +22,7 @@ Test("can load global function from DLL") {
     AssertOutputContains("attempt to call global 'say_hello_from_dll' (a nil value)");
 
     eval(R"(
-        DllLoader.LoadDLL("DLL that Has One Global Function.dll");
+        LibraryLoader.LoadSharedLibrary("DLL that Has One Global Function.dll");
     )");
 
     AssertOutputContains(R"(Loaded DLL: "DLL that Has One Global Function.dll")");

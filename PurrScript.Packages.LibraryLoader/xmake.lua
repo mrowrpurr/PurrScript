@@ -1,4 +1,4 @@
-target("PurrScript.Packages.DllLoader")
+target("PurrScript.Packages.LibraryLoader")
     set_kind("headeronly")
     add_deps(
         "PurrScript.DLL",
