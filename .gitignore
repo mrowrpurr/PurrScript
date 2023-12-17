@@ -1,3 +1,6 @@
+# Ignore doxygen in the main branch
+docs
+
 build
 .idea
 cmake-build*
