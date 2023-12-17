@@ -1,0 +1,9 @@
+set_policy("package.requires_lock", true)
+
+set_languages("c++20")
+
+add_rules("mode.debug", "mode.releasedbg", "mode.release")
+
+add_repositories("MrowrLib https://github.com/MrowrLib/Packages.git")
+
+includes("*/xmake.lua")
